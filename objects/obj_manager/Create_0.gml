@@ -26,6 +26,10 @@ discardCard = noone
 reshuffleStep = 0
 reshuffleCard = noone
 
+playerScore = 0
+enemyScore = 0
+draw_set_font(fnt_font)
+
 for (var i=0;i<24;i++){
 	array_push(startDeck,instance_create_depth(x,y,0,obj_card))
 }
@@ -80,7 +84,39 @@ function Battle(){
 }
 
 function Score(){
+	var playerThrow = playerField[0]._throw
+	var enemyThrow = enemyField[0]._throw
+	var winner = 0 //0: tie, 1: player, 2: enemy
+	//0: Scissors
+	//1: Paper
+	//2: Rock
+	if playerThrow == enemyThrow{
+		winner = 0
+	}else if playerThrow == 0{
+		if enemyThrow == 1{
+			winner = 1
+		}else{
+			winner = 2
+		}
+	}else if playerThrow == 1{
+		if enemyThrow == 2{
+			winner = 1
+		}else{
+			winner = 2
+		}
+	}else if playerThrow == 2{
+		if enemyThrow == 0{
+			winner = 1
+		}else{
+			winner = 2
+		}
+	}
 	
+	if winner == 1{
+		playerScore += 1
+	}else if winner == 2{
+		enemyScore += 1
+	}
 }
 
 function Discard(){
